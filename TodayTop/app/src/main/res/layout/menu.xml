@@ -2,11 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/mainBackground"
     >
     <RelativeLayout
+        android:id="@+id/not_login"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorGray">
+        android:background="@color/colorGray"
+        android:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +45,29 @@
             android:text="推荐登录更精准"
             android:layout_marginTop="170dp"
             android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/already_login"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorRed"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/head_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:id="@+id/nickname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你好你好"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/head_iv"
+            android:layout_marginLeft="20dp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

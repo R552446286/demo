@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bwie.renjue.R;
@@ -27,6 +29,8 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 import java.util.HashMap;
 
@@ -49,6 +53,10 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private LinearLayout dayNight_linear;
     //默认的日间模式
     private int theme = R.style.AppTheme;
+    private RelativeLayout not_login;
+    private RelativeLayout already_login;
+    private ImageView head_iv;
+    private TextView nickname_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,10 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
             theme = savedInstanceState.getInt("theme");
             //设置主题 此方法必须在setContentView()之前调用
             setTheme(theme);
-
+        }
+        //去头
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().hide();
         }
         setContentView(R.layout.homefragment);
         //传入参数APPID和全局Context上下文
@@ -95,6 +106,10 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         qq_login = (ImageView) findViewById(R.id.qq_login);
         weixin_login = (ImageView) findViewById(R.id.weixin_login);
         dayNight_linear = (LinearLayout) findViewById(R.id.dayNight_linear);
+        not_login = (RelativeLayout) findViewById(R.id.not_login);
+        already_login = (RelativeLayout) findViewById(R.id.already_login);
+        head_iv = (ImageView) findViewById(R.id.head_iv);
+        nickname_tv = (TextView) findViewById(R.id.nickname_tv);
         //设置默认为首页
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -186,6 +201,13 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                         String nickName=res.optString("nickname");
                         String figureurl_qq_1=res.optString("figureurl_qq_1");
                         Log.e(TAG,nickName+",,"+figureurl_qq_1);
+                        not_login.setVisibility(View.GONE);
+                        already_login.setVisibility(View.VISIBLE);
+                        //通过ImageOptions.Builder().set方法设置图片的属性
+                        ImageOptions options = new ImageOptions.Builder().setCircular(true).setCrop(true).setSize(100, 100).setLoadingDrawableId(R.mipmap.ic_launcher).build();
+                        x.image().bind(head_iv,figureurl_qq_1,options);
+                        x.image().bind(login_iv,figureurl_qq_1,options);
+                        nickname_tv.setText(nickName);
                     }
 
                     @Override
@@ -233,7 +255,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     //保存数据
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+//        super.onSaveInstanceState(outState);
         outState.putInt("theme", theme);
     }
 

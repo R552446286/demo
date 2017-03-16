@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //去头
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_main);
         //sp存取值
         SharedPreferences config = getSharedPreferences("config", MODE_PRIVATE);
