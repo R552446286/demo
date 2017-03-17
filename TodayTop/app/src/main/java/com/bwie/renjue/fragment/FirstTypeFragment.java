@@ -1,14 +1,19 @@
 package com.bwie.renjue.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.bwie.renjue.R;
+import com.bwie.renjue.activity.WebViewActivity;
 import com.bwie.renjue.adapter.NewsAdapter;
 import com.bwie.renjue.bean.NewsData;
 import com.bwie.renjue.utils.StreamUtils;
@@ -35,6 +40,7 @@ public class FirstTypeFragment extends Fragment{
     private XListView xListView;
     private HashMap<String,String> typeMap=new HashMap<>();
     private String jsonUrl;
+    private Handler handler;
 
     @Nullable
     @Override
@@ -45,6 +51,7 @@ public class FirstTypeFragment extends Fragment{
     }
 
     private void initView(View view) {
+        handler=new Handler();
         xListView = (XListView) view.findViewById(R.id.xListView);
     }
 
@@ -133,7 +140,51 @@ public class FirstTypeFragment extends Fragment{
             Gson gson=new Gson();
             NewsData newsData = gson.fromJson(json, NewsData.class);
             List<NewsData.Result.News> data = newsData.result.data;
-            xListView.setAdapter(new NewsAdapter(getActivity(),data));
+            NewsAdapter adapter=new NewsAdapter(getActivity(),data);
+            xListView.setAdapter(adapter);
+            initXListView(adapter,data);
         }
+    }
+
+    private void initXListView(final NewsAdapter adapter, final List<NewsData.Result.News> data) {
+        //设置xlistview可刷新
+        xListView.setPullRefreshEnable(true);
+        //设置xlistview可加载
+        xListView.setPullLoadEnable(true);
+        //xlistview上拉下拉监听
+        xListView.setXListViewListener(new XListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "下拉刷新中...", Toast.LENGTH_SHORT).show();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        xListView.stopRefresh();
+                    }
+                },2000);
+            }
+
+            @Override
+            public void onLoadMore() {
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "上拉加载中...", Toast.LENGTH_SHORT).show();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        xListView.stopLoadMore();
+                    }
+                },2000);
+            }
+        });
+        //xlistview条目点击事件
+        xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url",data.get(position).url);
+                startActivity(intent);
+            }
+        });
     }
 }

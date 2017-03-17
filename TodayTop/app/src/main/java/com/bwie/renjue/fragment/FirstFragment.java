@@ -27,7 +27,6 @@ import java.util.List;
  * @date 2017/3/1420:45
  */
 public class FirstFragment extends Fragment{
-
     private TabLayout first_tablayout;
     private ViewPager first_viewpager;
     private TextView first_addpro;

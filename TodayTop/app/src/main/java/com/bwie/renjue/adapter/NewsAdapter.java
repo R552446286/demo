@@ -80,7 +80,7 @@ public class NewsAdapter extends BaseAdapter{
                     v2.type2_title= (TextView) convertView.findViewById(R.id.type2_title);
                     v2.type2_author= (TextView) convertView.findViewById(R.id.type2_author);
                     v2.type2_date= (TextView) convertView.findViewById(R.id.type2_date);
-                    v2.type2_iv= (ImageView) convertView.findViewById(R.id.type1_iv2);
+                    v2.type2_iv= (ImageView) convertView.findViewById(R.id.type2_iv);
                     convertView.setTag(v2);
                     break;
             }
