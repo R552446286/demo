@@ -32,6 +32,7 @@ public class NewsSQLiteOpenHelper extends SQLiteOpenHelper{
         db.execSQL("insert into titlemore(name) values('趣图')");
         db.execSQL("insert into titlemore(name) values('健康')");
         db.execSQL("insert into titlemore(name) values('美女')");
+        db.execSQL("create table care (_id Integer primary key autoincrement,name char)");
     }
 
     @Override

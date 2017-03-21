@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bwie.renjue.R;
@@ -18,6 +19,10 @@ import com.bwie.renjue.adapter.NewsAdapter;
 import com.bwie.renjue.bean.NewsData;
 import com.bwie.renjue.utils.StreamUtils;
 import com.google.gson.Gson;
+import com.liaoinstan.springview.container.AcFunHeader;
+import com.liaoinstan.springview.container.DefaultFooter;
+import com.liaoinstan.springview.container.DefaultHeader;
+import com.liaoinstan.springview.widget.SpringView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,10 +42,11 @@ import xlistview.bawei.com.xlistviewlibrary.XListView;
  */
 public class FirstTypeFragment extends Fragment{
 
-    private XListView xListView;
     private HashMap<String,String> typeMap=new HashMap<>();
     private String jsonUrl;
     private Handler handler;
+    private SpringView springView;
+    private ListView listView;
 
     @Nullable
     @Override
@@ -52,7 +58,8 @@ public class FirstTypeFragment extends Fragment{
 
     private void initView(View view) {
         handler=new Handler();
-        xListView = (XListView) view.findViewById(R.id.xListView);
+        springView = (SpringView) view.findViewById(R.id.springView);
+        listView = (ListView) view.findViewById(R.id.listView);
     }
 
     @Override
@@ -141,18 +148,16 @@ public class FirstTypeFragment extends Fragment{
             NewsData newsData = gson.fromJson(json, NewsData.class);
             List<NewsData.Result.News> data = newsData.result.data;
             NewsAdapter adapter=new NewsAdapter(getActivity(),data);
-            xListView.setAdapter(adapter);
+            listView.setAdapter(adapter);
             initXListView(adapter,data);
         }
     }
 
     private void initXListView(final NewsAdapter adapter, final List<NewsData.Result.News> data) {
-        //设置xlistview可刷新
-        xListView.setPullRefreshEnable(true);
-        //设置xlistview可加载
-        xListView.setPullLoadEnable(true);
-        //xlistview上拉下拉监听
-        xListView.setXListViewListener(new XListView.IXListViewListener() {
+        springView.setType(SpringView.Type.FOLLOW);
+        springView.setHeader(new DefaultHeader(getActivity()));
+        springView.setFooter(new DefaultFooter(getActivity()));
+        springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
                 adapter.notifyDataSetChanged();
@@ -160,25 +165,25 @@ public class FirstTypeFragment extends Fragment{
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        xListView.stopRefresh();
+                        springView.onFinishFreshAndLoad();
                     }
                 },2000);
             }
 
             @Override
-            public void onLoadMore() {
+            public void onLoadmore() {
                 adapter.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "上拉加载中...", Toast.LENGTH_SHORT).show();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        xListView.stopLoadMore();
+                        springView.onFinishFreshAndLoad();
                     }
                 },2000);
             }
         });
-        //xlistview条目点击事件
-        xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //listview条目点击事件
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(getActivity(), WebViewActivity.class);

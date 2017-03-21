@@ -204,8 +204,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                         not_login.setVisibility(View.GONE);
                         already_login.setVisibility(View.VISIBLE);
                         //通过ImageOptions.Builder().set方法设置图片的属性
-                        ImageOptions options = new ImageOptions.Builder().setCircular(true).setCrop(true).setSize(100, 100).setLoadingDrawableId(R.mipmap.ic_launcher).build();
-                        ImageOptions options1 = new ImageOptions.Builder().setCircular(true).setCrop(true).setSize(40, 40).setLoadingDrawableId(R.mipmap.ic_launcher).build();
+                        ImageOptions options = new ImageOptions.Builder().setCircular(true).setCrop(true).setSize(100, 100).setLoadingDrawableId(R.mipmap.icon).build();
+                        ImageOptions options1 = new ImageOptions.Builder().setCircular(true).setCrop(true).setSize(40, 40).setLoadingDrawableId(R.mipmap.icon).build();
                         x.image().bind(head_iv,figureurl_qq_1,options);
                         x.image().bind(login_iv,figureurl_qq_1,options1);
                         nickname_tv.setText(nickName);

@@ -53,7 +53,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.TitleManagerActivity" />
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.ImageShowActivity" />
+        <activity android:name=".activity.AddCareActivity" />
+        <activity android:name=".activity.TypeActivity"></activity>
     </application>
 
 </manifest>

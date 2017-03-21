@@ -1,6 +1,8 @@
 package com.bwie.renjue.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bwie.renjue.R;
+import com.bwie.renjue.activity.ImageShowActivity;
+import com.bwie.renjue.activity.StartActivity;
 import com.bwie.renjue.bean.NewsData;
 import com.bwie.renjue.utils.ImageLoaderOptionsUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +26,8 @@ import java.util.List;
 public class NewsAdapter extends BaseAdapter{
     private Context context;
     private List<NewsData.Result.News> data;
+    private ArrayList<String> imagesUrl=new ArrayList<>();
+    private List<ImageView> images=new ArrayList<>();
 
     public NewsAdapter(Context context, List<NewsData.Result.News> data) {
         this.context = context;
@@ -102,12 +109,48 @@ public class NewsAdapter extends BaseAdapter{
                 ImageLoader.getInstance().displayImage(data.get(position).thumbnail_pic_s,v1.type1_iv1, ImageLoaderOptionsUtils.imageLoaderOptions(R.mipmap.ic_launcher));
                 ImageLoader.getInstance().displayImage(data.get(position).thumbnail_pic_s02,v1.type1_iv2, ImageLoaderOptionsUtils.imageLoaderOptions(R.mipmap.ic_launcher));
                 ImageLoader.getInstance().displayImage(data.get(position).thumbnail_pic_s03,v1.type1_iv3, ImageLoaderOptionsUtils.imageLoaderOptions(R.mipmap.ic_launcher));
+                final ArrayList<String> imagesUrl=new ArrayList<>();
+                imagesUrl.add(data.get(position).thumbnail_pic_s);
+                imagesUrl.add(data.get(position).thumbnail_pic_s02);
+                imagesUrl.add(data.get(position).thumbnail_pic_s03);
+                List<ImageView> images=new ArrayList<>();
+                images.add(v1.type1_iv1);
+                images.add(v1.type1_iv2);
+                images.add(v1.type1_iv3);
+                for (int i = 0; i < images.size(); i++) {
+                    final int j=i;
+                    images.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent=new Intent(context, ImageShowActivity.class);
+                            intent.putStringArrayListExtra("imagesUrl", imagesUrl);
+                            intent.putExtra("position",j);
+                            context.startActivity(intent);
+                        }
+                    });
+                }
                 break;
             case 1:
                 v2.type2_title.setText(data.get(position).title);
                 v2.type2_author.setText(data.get(position).author_name);
                 v2.type2_date.setText(data.get(position).date);
                 ImageLoader.getInstance().displayImage(data.get(position).thumbnail_pic_s,v2.type2_iv, ImageLoaderOptionsUtils.imageLoaderOptions(R.mipmap.ic_launcher));
+                final ArrayList<String> imagesUrl1=new ArrayList<>();
+                imagesUrl1.add(data.get(position).thumbnail_pic_s);
+                List<ImageView> images1=new ArrayList<>();
+                images1.add(v2.type2_iv);
+                for (int i = 0; i < images1.size(); i++) {
+                    final int j=i;
+                    images1.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent=new Intent(context, ImageShowActivity.class);
+                            intent.putStringArrayListExtra("imagesUrl", imagesUrl1);
+                            intent.putExtra("position",j);
+                            context.startActivity(intent);
+                        }
+                    });
+                }
                 break;
         }
         return convertView;

@@ -28,7 +28,8 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:src="@mipmap/guide_a"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:focusable="false"/>
             <ImageView
                 android:id="@+id/type1_iv2"
                 android:layout_width="0dp"
@@ -36,7 +37,8 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/guide_a"
                 android:scaleType="centerCrop"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:focusable="false"/>
             <ImageView
                 android:id="@+id/type1_iv3"
                 android:layout_width="0dp"
@@ -44,7 +46,8 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/guide_a"
                 android:scaleType="centerCrop"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:focusable="false"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

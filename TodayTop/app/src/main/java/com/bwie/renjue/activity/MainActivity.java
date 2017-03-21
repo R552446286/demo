@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import com.bwie.renjue.R;
 import com.bwie.renjue.adapter.GuideViewPagerAdapter;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewPager guide_viewPager;

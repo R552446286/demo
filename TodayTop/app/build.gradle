@@ -10,6 +10,18 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "ca72249d4ce7f68ca3fe7182", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -41,7 +53,12 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile files('libs/gson-2.6.2.jar')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
-
-    compile 'fm.jiecao:jiecaovideoplayer:4.6.3'//节操依赖
+    compile 'fm.jiecao:jiecaovideoplayer:4.6.3'
+    //节操依赖
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile files('libs/uk-co-senab-photoview.jar')
+    compile 'com.liaoinstan.springview:library:1.2.6'
+    //极光推送
+    compile 'cn.jiguang.sdk:jpush:3.0.3'
+    compile 'cn.jiguang.sdk:jcore:1.1.1'
 }
