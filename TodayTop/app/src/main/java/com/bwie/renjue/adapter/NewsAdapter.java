@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bwie.renjue.R;
 import com.bwie.renjue.activity.ImageShowActivity;
 import com.bwie.renjue.activity.StartActivity;
+import com.bwie.renjue.bean.News;
 import com.bwie.renjue.bean.NewsData;
 import com.bwie.renjue.utils.ImageLoaderOptionsUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,11 +26,11 @@ import java.util.List;
  */
 public class NewsAdapter extends BaseAdapter{
     private Context context;
-    private List<NewsData.Result.News> data;
+    private List<News> data;
     private ArrayList<String> imagesUrl=new ArrayList<>();
     private List<ImageView> images=new ArrayList<>();
 
-    public NewsAdapter(Context context, List<NewsData.Result.News> data) {
+    public NewsAdapter(Context context, List<News> data) {
         this.context = context;
         this.data = data;
     }

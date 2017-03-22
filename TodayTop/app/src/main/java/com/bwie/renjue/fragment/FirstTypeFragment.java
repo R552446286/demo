@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bwie.renjue.R;
 import com.bwie.renjue.activity.WebViewActivity;
 import com.bwie.renjue.adapter.NewsAdapter;
+import com.bwie.renjue.bean.News;
 import com.bwie.renjue.bean.NewsData;
 import com.bwie.renjue.utils.StreamUtils;
 import com.google.gson.Gson;
@@ -146,14 +147,14 @@ public class FirstTypeFragment extends Fragment{
             String json=s.toString();
             Gson gson=new Gson();
             NewsData newsData = gson.fromJson(json, NewsData.class);
-            List<NewsData.Result.News> data = newsData.result.data;
+            List<News> data = newsData.result.data;
             NewsAdapter adapter=new NewsAdapter(getActivity(),data);
             listView.setAdapter(adapter);
             initXListView(adapter,data);
         }
     }
 
-    private void initXListView(final NewsAdapter adapter, final List<NewsData.Result.News> data) {
+    private void initXListView(final NewsAdapter adapter, final List<News> data) {
         springView.setType(SpringView.Type.FOLLOW);
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
@@ -187,7 +188,9 @@ public class FirstTypeFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("url",data.get(position).url);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("news",data.get(position));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

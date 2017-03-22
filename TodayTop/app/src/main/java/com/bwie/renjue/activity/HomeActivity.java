@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RelativeLayout already_login;
     private ImageView head_iv;
     private TextView nickname_tv;
+    private LinearLayout collected_linear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         qq_login.setOnClickListener(this);
         weixin_login.setOnClickListener(this);
         dayNight_linear.setOnClickListener(this);
+        collected_linear.setOnClickListener(this);
     }
     //初始化控件
     private void initView() {
@@ -110,6 +112,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         already_login = (RelativeLayout) findViewById(R.id.already_login);
         head_iv = (ImageView) findViewById(R.id.head_iv);
         nickname_tv = (TextView) findViewById(R.id.nickname_tv);
+        collected_linear = (LinearLayout) findViewById(R.id.collected_linear);
         //设置默认为首页
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -171,6 +174,10 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                 theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
                 //重新创建
                 recreate();
+                break;
+            case R.id.collected_linear:
+                Intent intent=new Intent(HomeActivity.this,CollectedActivity.class);
+                startActivity(intent);
                 break;
         }
     }

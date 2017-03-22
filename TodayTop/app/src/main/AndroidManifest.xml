@@ -56,7 +56,8 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.ImageShowActivity" />
         <activity android:name=".activity.AddCareActivity" />
-        <activity android:name=".activity.TypeActivity"></activity>
+        <activity android:name=".activity.TypeActivity" />
+        <activity android:name=".activity.CollectedActivity"></activity>
     </application>
 
 </manifest>
