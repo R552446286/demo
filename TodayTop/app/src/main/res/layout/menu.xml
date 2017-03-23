@@ -115,4 +115,57 @@
                 />
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#F4F5F6"
+        android:layout_marginTop="300dp"></View>
+    <TextView
+        android:id="@+id/download_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="305dp"
+        android:text="离线下载"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#F4F5F6"
+        android:layout_marginTop="355dp"></View>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="360dp"
+        android:text="消息通知"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"/>
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    android:background="#F4F5F6"
+    android:layout_marginTop="410dp"></View>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="415dp"
+        android:text="用户反馈"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#F4F5F6"
+        android:layout_marginTop="465dp"></View>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="470dp"
+        android:text="系统设置"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"/>
 </RelativeLayout>

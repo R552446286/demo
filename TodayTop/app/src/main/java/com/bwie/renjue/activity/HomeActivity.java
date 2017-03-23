@@ -1,9 +1,11 @@
 package com.bwie.renjue.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.bwie.renjue.R;
 import com.bwie.renjue.fragment.CareFragment;
 import com.bwie.renjue.fragment.FirstFragment;
 import com.bwie.renjue.fragment.VideoFragment;
+import com.bwie.renjue.utils.NetWorkUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
@@ -58,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private ImageView head_iv;
     private TextView nickname_tv;
     private LinearLayout collected_linear;
+    private TextView download_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         weixin_login.setOnClickListener(this);
         dayNight_linear.setOnClickListener(this);
         collected_linear.setOnClickListener(this);
+        download_tv.setOnClickListener(this);
     }
     //初始化控件
     private void initView() {
@@ -113,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         head_iv = (ImageView) findViewById(R.id.head_iv);
         nickname_tv = (TextView) findViewById(R.id.nickname_tv);
         collected_linear = (LinearLayout) findViewById(R.id.collected_linear);
+        download_tv = (TextView) findViewById(R.id.download_tv);
         //设置默认为首页
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -179,8 +185,39 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                 Intent intent=new Intent(HomeActivity.this,CollectedActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.download_tv:
+                boolean workIsAvailable = NetWorkUtils.isNetWorkIsAvailable(HomeActivity.this);
+                if (!workIsAvailable){
+                    Toast.makeText(HomeActivity.this, "网络未连接，请设置网络", Toast.LENGTH_SHORT).show();
+                    Intent intentSetting = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+                    startActivity(intentSetting);
+                }else{
+                    Toast.makeText(HomeActivity.this, "网络连接成功", Toast.LENGTH_SHORT).show();
+                    download();
+                }
+                break;
         }
     }
+
+    private void download() {
+        String[] items={"wifi","手机流量"};
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("网络选择");
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                }
+            }
+        });
+    }
+
     /**
      * 自定义监听器实现IUiListener接口后，需要实现的3个方法
      * onComplete完成 onError错误 onCancel取消
