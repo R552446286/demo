@@ -57,7 +57,8 @@
         <activity android:name=".activity.ImageShowActivity" />
         <activity android:name=".activity.AddCareActivity" />
         <activity android:name=".activity.TypeActivity" />
-        <activity android:name=".activity.CollectedActivity"></activity>
+        <activity android:name=".activity.CollectedActivity" />
+        <activity android:name=".activity.ApkActivity"></activity>
     </application>
 
 </manifest>

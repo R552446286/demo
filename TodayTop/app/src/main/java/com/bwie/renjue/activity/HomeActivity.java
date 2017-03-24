@@ -84,6 +84,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         //配置侧滑
         final SlidingMenu menu=new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
+        menu.setShadowWidth(15);
+        menu.setShadowDrawable(R.drawable.shadow);
         menu.setBehindOffset(100);
         menu.attachToActivity(this,SlidingMenu.SLIDING_CONTENT);
         menu.setMenu(R.layout.menu);
@@ -208,14 +210,24 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-
+                        Intent intent=new Intent(HomeActivity.this,ApkActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
                         break;
                     case 1:
-
+                        //手机流量下提醒用户
+                        boolean mobile = NetWorkUtils.isMobile(HomeActivity.this);
+                        if (mobile) {
+                            Toast.makeText(HomeActivity.this, "现在未使用wifi,将耗用手机流量", Toast.LENGTH_SHORT).show();
+                            Intent wifiSettingsIntent = new Intent("android.settings.WIFI_SETTINGS");
+                            startActivity(wifiSettingsIntent);
+                        }
+                        dialog.dismiss();
                         break;
                 }
             }
         });
+        builder.show();
     }
 
     /**
