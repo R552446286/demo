@@ -52,13 +52,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.TitleManagerActivity" />
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.ImageShowActivity" />
         <activity android:name=".activity.AddCareActivity" />
         <activity android:name=".activity.TypeActivity" />
         <activity android:name=".activity.CollectedActivity" />
         <activity android:name=".activity.ApkActivity"></activity>
+        <activity android:name=".activity.ChannelActivity"></activity>
     </application>
 
 </manifest>

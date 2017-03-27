@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.xutils.x;
 
+import channelmanager.bwie.com.draggridviewlibrary.db.SQLHelper;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -17,9 +18,12 @@ import cn.jpush.android.api.JPushInterface;
  * @date 2017/3/169:56
  */
 public class MyApplication extends Application{
+    private static MyApplication myApplication;
+    private SQLHelper sqlHelper;
     @Override
     public void onCreate() {
         super.onCreate();
+        myApplication=this;
         //初始化极光
         JPushInterface.init(this);
         //设置debug模式
@@ -37,5 +41,26 @@ public class MyApplication extends Application{
                 .memoryCache(new WeakMemoryCache())
                 .build();
         ImageLoader.getInstance().init(configuration);
+    }
+    /** 获取Application */
+    public static MyApplication getApp() {
+        return myApplication;
+    }
+
+    /** 获取数据库Helper */
+    public SQLHelper getSQLHelper() {
+        if (sqlHelper == null)
+            sqlHelper = new SQLHelper(myApplication);
+        return sqlHelper;
+    }
+
+    /** 摧毁应用进程时候调用 */
+    public void onTerminate() {
+        if (sqlHelper != null)
+            sqlHelper.close();
+        super.onTerminate();
+    }
+
+    public void clearAppCache() {
     }
 }
